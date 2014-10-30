@@ -1,0 +1,45 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+</head>
+
+<body>
+  {{> wrapper}}
+</body>
+
+<template name="wrapper">
+  <div class="wrapper">
+    {{> slider templateNames=templateNames}}
+  </div>
+</template>
+
+<template name="slider">
+  <div class="mask">
+    <div class="pages">
+      {{#each pages}}
+        <div class="page {{name}}">
+          {{> UI.dynamic template=template}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="page1">
+  page 1
+</template>
+
+<template name="page2">
+  page 2
+</template>
+
+<template name="page3">
+  page 3
+</template>
+
+<template name="page4">
+  page 4
+</template>
+
+<template name="page5">
+  page 5
+</template>
