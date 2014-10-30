@@ -1,9 +1,9 @@
-# to do
+# [demo](http://swipe.meteor.com)
 
-[demo](http://swipe.meteor.com)
+## To Do
 
-Incorporate iron router with pages and scenes
-
-Generalize this so you have have multiple swipe views.
-
-Generalize to allow for y as well?
+- Use iron router to land on pages in the middle of the layout.
+- Use reactive variables so buttons to perform the swipes
+- Generalize this code for a layout with multiple swipers.
+- Generalize this code to allow for y swiping
+- Make a css class that prevents swiping from that element
