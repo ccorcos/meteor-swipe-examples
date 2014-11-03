@@ -21,10 +21,14 @@ Template.slider.helpers
 
 Template.slider.rendered = ->
   @numPages = @data?.templateNames?.length
+  pages = $('.pages')
+  width = pages.width()
+  pageWidth = width / (@numPages)
+  # start on the second page
   @startX = 0
   @mouseDown = false
   @mouseX = 0
-  @posX = 0
+  @posX = -1*pageWidth
 
 # touchstart, mousedown
 # touchmove, mousemove
