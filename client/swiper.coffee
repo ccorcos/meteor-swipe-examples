@@ -80,16 +80,24 @@ animateBack = ->
   getPage('center')?.css 'transform',
     'translate3d(0px,0,0)'
 
+# If there are only 3 windows, you want to make sure not to animate
+# the one that goes off screen or it will scrolla cross the view
 moveLeft = ->
   right = Session.get('right')
+  center = Session.get('center')
   left = Session.get('left')
   $('.page.'+right).removeClass('animate')
+  $('.page.'+center).addClass('animate')
+  $('.page.'+left).addClass('animate')
   page(left)
 
 moveRight = ->
   right = Session.get('right')
+  center = Session.get('center')
   left = Session.get('left')
   $('.page.'+left).removeClass('animate')
+  $('.page.'+center).addClass('animate')
+  $('.page.'+right).addClass('animate')
   page(right)
 
 

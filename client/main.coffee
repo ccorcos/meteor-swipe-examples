@@ -6,8 +6,8 @@
     'page1'
     'page2'
     'page3'
-    'page4'
-    'page5'
+    # 'page4'
+    # 'page5'
   ]
 
 
@@ -20,11 +20,11 @@ Template.slider.rendered = ->
   firstTime = true
   Tracker.autorun ->
     # Don't animate the first time!
-    if firstTime
-      firstTime = false
-    else
-      for name in names
-        $('.page.'+name).addClass('animate')
+    # if firstTime
+    #   firstTime = false
+    # else
+    #   for name in names
+    #     $('.page.'+name).addClass('animate')
 
 
     # With indexes
