@@ -1,9 +1,9 @@
 # [demo](http://swipe.meteor.com)
 
-## To Do
+This demonstrated infinite swiping. You can hook into iron router by calling
+`page`.
 
-- Use iron router to land on pages in the middle of the layout.
-- Use reactive variables so buttons to perform the swipes
+## Todo
+
 - Generalize this code for a layout with multiple swipers.
-- Generalize this code to allow for y swiping
 - Make a css class that prevents swiping from that element

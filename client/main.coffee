@@ -6,8 +6,8 @@
     'page1'
     'page2'
     'page3'
-    # 'page4'
-    # 'page5'
+    'page4'
+    'page5'
   ]
 
 
@@ -37,15 +37,11 @@ Template.slider.rendered = ->
 
     # manually
     # if pageIs('page1')
-    #   leftCenterRightHide('page5', 'page1', 'page2', ['page3', 'page4'])
-    # if pageIs('page1')
-    #   leftCenterRightHide('page5', 'page1', 'page2', ['page3', 'page4'])
-    # if pageIs('page1')
-    #   leftCenterRightHide('page5', 'page1', 'page2', ['page3', 'page4'])
-    # if pageIs('page1')
-    #   leftCenterRightHide('page5', 'page1', 'page2', ['page3', 'page4'])
-    # if pageIs('page1')
-    #   leftCenterRightHide('page5', 'page1', 'page2', ['page3', 'page4'])
+    #   leftCenterRightHide('page3', 'page1', 'page2', [])
+    # if pageIs('page2')
+    #   leftCenterRightHide('page1', 'page2', 'page3', [])
+    # if pageIs('page3')
+    #   leftCenterRightHide('page2', 'page3', 'page1', [])
 
 
   # keep track of scrolling
