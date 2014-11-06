@@ -71,34 +71,57 @@ animateBack = ->
   for name in pageNames()
     $('.page.'+name).addClass('animate')
 
-  getPage('left')?.css 'transform',
-    'translate3d(-' + width +  'px,0,0)'
+  if canScroll('left')
+    getPage('left')?.css 'transform',
+      'translate3d(-' + width +  'px,0,0)'
 
-  getPage('right')?.css 'transform',
-    'translate3d(' + width + 'px,0,0)'
+  if canScroll('right')
+    getPage('right')?.css 'transform',
+      'translate3d(' + width + 'px,0,0)'
 
   getPage('center')?.css 'transform',
     'translate3d(0px,0,0)'
 
-# If there are only 3 windows, you want to make sure not to animate
-# the one that goes off screen or it will scrolla cross the view
+
 moveLeft = ->
+  width = pageWidth()
   right = Session.get('right')
   center = Session.get('center')
   left = Session.get('left')
+  # If there are only 3 windows, you want to make sure not to animate
+  # the one that goes off screen or it will scrolla cross the view
   $('.page.'+right).removeClass('animate')
   $('.page.'+center).addClass('animate')
   $('.page.'+left).addClass('animate')
-  page(left)
+
+  # wait until after finished animating to swap the left and right views
+  if canScroll('left')
+    getPage('left')?.css 'transform',
+      'translate3d(0px,0,0)'
+    getPage('center')?.css 'transform',
+      'translate3d(' + width + 'px,0,0)'
+
+  delay 300, ->
+    page(left)
+
 
 moveRight = ->
+  width = pageWidth()
   right = Session.get('right')
   center = Session.get('center')
   left = Session.get('left')
   $('.page.'+left).removeClass('animate')
   $('.page.'+center).addClass('animate')
   $('.page.'+right).addClass('animate')
-  page(right)
+
+  if canScroll('right')
+    getPage('right')?.css 'transform',
+      'translate3d(0px,0,0)'
+    getPage('center')?.css 'transform',
+      'translate3d(-' + width + 'px,0,0)'
+
+  delay 300, ->
+    page(right)
 
 
 Template.slider.events
@@ -204,11 +227,40 @@ Template.slider.events
       t.changeX = 0
       t.mouseDown = false
 
+#   'webkitTransitionEnd, transitionend': (e,t) ->
+#     console.log "animation end"
+#     hide()
+#
+#
+# @hideAll = ->
+#   for name in pageNames()
+#     setHidden name
+#
+# @hide = ->
+#   hide = Session.get 'hide'
+#   if hide
+#     for hidden in hide
+#       setHidden hidden
+#     Session.set 'hide', null
+#
+# hideAfterTransition = (hide) ->
+#   Session.set 'hide', hide
 
 @leftCenterRightHide = (left, center, right, hide) ->
+
   setPage 'left', left
   setPage 'center', center
   setPage 'right', right
 
   for hidden in hide
     setHidden hidden
+
+  #
+  # if not left
+  #   setLeftAfterTransition(left)
+  # if not right
+  #   setRightAfterTransition(right)
+  #
+  #
+  #
+  # hideAfterTransition(hide)
