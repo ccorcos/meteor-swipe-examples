@@ -1,13 +1,13 @@
 # [demo](http://swipe.meteor.com)
 
 
-https://github.com/meteor/meteor/blob/d477c8d03bb078f7e8e85dbe4b51db7ae5689573/packages/session/session.js
+# To do
 
-mouse off screen!
-make into a package
-setting the default page and using iron router
-
-
+- update the demo links
+- make into a package
+- https://github.com/meteor/meteor/blob/d477c8d03bb078f7e8e85dbe4b51db7ae5689573/packages/session/session.js
+- mouseout off screen bug
+- iron router example
 
 # Getting Started
 
