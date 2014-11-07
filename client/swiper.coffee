@@ -207,6 +207,20 @@ Template.slider.events
 
 
 @leftCenterRightHide = (left, center, right, hide) ->
+  oldLeft = Session.get 'left'
+  oldRight = Session.get 'right'
+  oldCenter = Session.get 'center'
+
+  if (center is oldRight) and (left isnt oldCenter)
+    # if we swipe but the center scrolls left and falls off
+    # make sure to finish animating it off before updating
+    console.log "left falls off"
+    setPage 'left', oldCenter
+
+
+  else if (center is oldLeft) and (right isnt oldCenter)
+    console.log "right falls off"
+
   setPage 'left', left
   setPage 'center', center
   setPage 'right', right

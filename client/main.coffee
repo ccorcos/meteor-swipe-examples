@@ -17,6 +17,8 @@ Template.slider.rendered = ->
 
   names = pageNames()
 
+  removePage5 = false
+
   Tracker.autorun ->
 
     # With indexes
@@ -30,14 +32,23 @@ Template.slider.rendered = ->
     # manually
     if pageIs('page1')
       # leftCenterRightHide(null, 'page1', 'page2', ['page3', 'page4', 'page5'])
-      leftCenterRightHide('page5', 'page1', 'page2', ['page3', 'page4'])
+      if removePage5
+        # $('.page.page5').css 'z-index', '0'
+        # $('.page.page1').css 'z-index', '1'
+        leftCenterRightHide('page4', 'page1', 'page2', ['page3'])
+      else
+        leftCenterRightHide(null, 'page1', 'page2', ['page3', 'page4', 'page5'])
     if pageIs('page2')
       leftCenterRightHide('page1', 'page2', 'page3', ['page4', 'page5'])
     if pageIs('page3')
       leftCenterRightHide('page2', 'page3', 'page4', ['page5', 'page1'])
     if pageIs('page4')
-      leftCenterRightHide('page3', 'page4', 'page5', ['page1', 'page2'])
+      if removePage5
+        leftCenterRightHide('page3', 'page4', 'page1', ['page5', 'page2'])
+      else
+        leftCenterRightHide('page3', 'page4', 'page5', ['page1', 'page2'])
     if pageIs('page5')
+      removePage5 = true
       leftCenterRightHide('page4', 'page5', 'page1', ['page2', 'page3'])
 
 
