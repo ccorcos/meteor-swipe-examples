@@ -157,20 +157,22 @@ Template.swipe.events
     # pageWidth
 
   'mousedown .pages': (e,t) ->
-    # remove stop all animations in this swiper
-    $(t.findAll('.animate')).removeClass('animate')
-    clickX = e.pageX
-    t.startX = clickX # beginning of the swipe
-    t.mouseX = clickX # current position of the swipe
-    t.mouseDown = true # swipe has begun
+    unless $(e.target).hasClass('no-swipe')
+      # remove stop all animations in this swiper
+      $(t.findAll('.animate')).removeClass('animate')
+      clickX = e.pageX
+      t.startX = clickX # beginning of the swipe
+      t.mouseX = clickX # current position of the swipe
+      t.mouseDown = true # swipe has begun
 
   'touchstart .pages': (e,t) ->
-    # remove stop all animations in this swiper
-    $(t.findAll('.animate')).removeClass('animate')
-    clickX = e.originalEvent.touches[0].pageX
-    t.startX = clickX # beginning of the swipe
-    t.mouseX = clickX # current position of the swipe
-    t.mouseDown = true # swipe has begun
+    unless $(e.target).hasClass('no-swipe')
+      # remove stop all animations in this swiper
+      $(t.findAll('.animate')).removeClass('animate')
+      clickX = e.originalEvent.touches[0].pageX
+      t.startX = clickX # beginning of the swipe
+      t.mouseX = clickX # current position of the swipe
+      t.mouseDown = true # swipe has begun
 
   'mousemove .pages': (e,t) ->
     if t.mouseDown
@@ -195,43 +197,59 @@ Template.swipe.events
       t.Swiper.drag(posX)
     return false
 
-  'mouseup, mouseout': (e,t) ->
-    if t.mouseDown
-      posX = t.changeX + t.posX
-      momentum = Math.abs(10*t.velX)
-      momentum = Math.min(momentum, t.width/2)
-      momentum = momentum*sign(t.velX)
-      index = Math.round((posX + momentum) / t.width)
-      if index is -1
-        t.Swiper.moveRight()
-      else if index is 1
-        t.Swiper.moveLeft()
-      else
-        t.Swiper.animateBack()
+  'mouseup .pages': (e,t) ->
+    if $(e.target).hasClass('swipe-control')
       t.velX = 0
       t.startX = 0
       t.mouseX = 0
       t.changeX = 0
       t.mouseDown = false
+    else
+      if t.mouseDown
+        posX = t.changeX + t.posX
+        momentum = Math.abs(10*t.velX)
+        momentum = Math.min(momentum, t.width/2)
+        momentum = momentum*sign(t.velX)
+        index = Math.round((posX + momentum) / t.width)
+        if index is -1
+          t.Swiper.moveRight()
+        else if index is 1
+          t.Swiper.moveLeft()
+        else
+          t.Swiper.animateBack()
 
-  'touchend, touchcancel': (e,t) ->
-    if t.mouseDown
-      posX = t.changeX + t.posX
-      momentum = Math.abs(10*t.velX)
-      momentum = Math.min(momentum, t.width/2)
-      momentum = momentum*sign(t.velX)
-      index = Math.round((posX + momentum) / t.width)
-      if index is -1
-        t.Swiper.moveRight()
-      else if index is 1
-        t.Swiper.moveLeft()
-      else
-        t.Swiper.animateBack()
+        t.velX = 0
+        t.startX = 0
+        t.mouseX = 0
+        t.changeX = 0
+        t.mouseDown = false
+
+
+  'touchend, touchcancel .pages': (e,t) ->
+    if $(e.target).hasClass('swipe-control')
       t.velX = 0
       t.startX = 0
       t.mouseX = 0
       t.changeX = 0
       t.mouseDown = false
+    else
+      if t.mouseDown
+        posX = t.changeX + t.posX
+        momentum = Math.abs(10*t.velX)
+        momentum = Math.min(momentum, t.width/2)
+        momentum = momentum*sign(t.velX)
+        index = Math.round((posX + momentum) / t.width)
+        if index is -1
+          t.Swiper.moveRight()
+        else if index is 1
+          t.Swiper.moveLeft()
+        else
+          t.Swiper.animateBack()
+        t.velX = 0
+        t.startX = 0
+        t.mouseX = 0
+        t.changeX = 0
+        t.mouseDown = false
 
 
 

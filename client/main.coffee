@@ -74,3 +74,10 @@ Template.main.rendered = ->
 
     else if Swiper.pageIs('page3')
       Swiper.leftRight('page2', 'page1')
+
+Template.page1.events
+  'click .next': (e,t) ->
+    Swiper.moveRight()
+
+  'touchend .next': (e,t) ->
+    Swiper.moveRight()
