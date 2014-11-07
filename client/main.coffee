@@ -31,10 +31,8 @@ Template.slider.rendered = ->
 
     # manually
     if pageIs('page1')
-      # leftCenterRightHide(null, 'page1', 'page2', ['page3', 'page4', 'page5'])
       if removePage5
-        # $('.page.page5').css 'z-index', '0'
-        # $('.page.page1').css 'z-index', '1'
+        # dont delete page5 because its dropping off
         leftCenterRightHide('page4', 'page1', 'page2', ['page3'])
       else
         leftCenterRightHide(null, 'page1', 'page2', ['page3', 'page4', 'page5'])
