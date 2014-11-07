@@ -3,29 +3,20 @@
 </head>
 
 <body>
-  {{> wrapper}}
+  {{> main}}
 </body>
 
-<template name="wrapper">
+<template name="main">
   <div class="wrapper">
-    {{> slider}}
-  </div>
-</template>
-
-<template name="slider">
-  <div class="mask">
-    <div class="pages">
-      {{#each pages}}
-        <div class="page {{name}}">
-          {{> UI.dynamic template=template}}
-        </div>
-      {{/each}}
-    </div>
+    {{>swipe Swiper=Swiper}}
   </div>
 </template>
 
 <template name="page1">
   page 1
+
+  <div class="next">next</div>
+  <div class="static">You cant begin a swipe here!</div>
 </template>
 
 <template name="page2">

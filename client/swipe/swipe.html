@@ -1,0 +1,10 @@
+
+<template name="swipe">
+  <div class="pages">
+    {{#each pages}}
+      <div class="page {{name}}">
+        {{> UI.dynamic template=name}}
+      </div>
+    {{/each}}
+  </div>
+</template>

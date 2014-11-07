@@ -1,57 +1,76 @@
-# This car
+
+# EXAMPLE 1
+# This example shows how you can dynamically set the center, left and right pages
+# to whatever you want with no deterimental effects. In this example, we set out
+# to show:
+#
+# 1) We can prevent a swipe in either direction by setting null
+# 2) We can infinitely swipe in circles if we want (to the right in this case)
+# 3) We can have pages drop out seemlessly as happens with page5 after being viewed
+
+###
+Swiper = new Swipe(['page1', 'page2', 'page3', 'page4', 'page5'])
+
+Template.main.helpers
+  Swiper: -> Swiper
 
 
-@pageNames = ->
-  [
-    'page1'
-    'page2'
-    'page3'
-    'page4'
-    'page5'
-  ]
+Template.main.rendered = ->
 
+  # starting page
+  Swiper.setPage('page1')
 
-Template.slider.rendered = ->
-
-  page('page1')
-
-  names = pageNames()
-
+  # page control
   removePage5 = false
-
   Tracker.autorun ->
-
-    # With indexes
-    # numPages = names.length
-    # center = names.indexOf(getPage())
-    # left = wrap(0, numPages-1, center-1)
-    # right = wrap(0, numPages-1, center+1)
-    # hidden = _.difference([0..numPages-1], [center, right, left])
-    # leftCenterRightHide(names[left], names[center], names[right], _.map(hidden, (index) -> names[index]))
-
-    # manually
-    if pageIs('page1')
+    console.log "autorun"
+    if Swiper.pageIs('page1')
       if removePage5
-        # dont delete page5 because its dropping off
-        leftCenterRightHide('page4', 'page1', 'page2', ['page3'])
+        Swiper.leftRight('page4', 'page2')
       else
-        leftCenterRightHide(null, 'page1', 'page2', ['page3', 'page4', 'page5'])
-    if pageIs('page2')
-      leftCenterRightHide('page1', 'page2', 'page3', ['page4', 'page5'])
-    if pageIs('page3')
-      leftCenterRightHide('page2', 'page3', 'page4', ['page5', 'page1'])
-    if pageIs('page4')
+        Swiper.leftRight(null, 'page2')
+
+    else if Swiper.pageIs('page2')
+      Swiper.leftRight('page1', 'page3')
+
+    else if Swiper.pageIs('page3')
+      Swiper.leftRight('page2', 'page4')
+
+    else if Swiper.pageIs('page4')
       if removePage5
-        leftCenterRightHide('page3', 'page4', 'page1', ['page5', 'page2'])
+        Swiper.leftRight('page3', 'page1')
       else
-        leftCenterRightHide('page3', 'page4', 'page5', ['page1', 'page2'])
-    if pageIs('page5')
+        Swiper.leftRight('page3', 'page5')
+
+    else if Swiper.pageIs('page5')
       removePage5 = true
-      leftCenterRightHide('page4', 'page5', 'page1', ['page2', 'page3'])
+      Swiper.leftRight('page4', 'page1')
+###
 
 
-  # keep track of scrolling
-  @startX = 0
-  @mouseDown = false
-  @mouseX = 0
-  @posX = 0
+# Example 2
+# This example set out to show that when infinitely scrolling 3 pages, the
+# page wraps around without animation as opposed to animating across the screen!
+Swiper = new Swipe(['page1', 'page2', 'page3'])
+
+Template.main.helpers
+  Swiper: -> Swiper
+
+
+Template.main.rendered = ->
+
+  # starting page
+  Swiper.setPage('page1')
+
+  # page control
+  removePage5 = false
+  Tracker.autorun ->
+    console.log "autorun"
+    if Swiper.pageIs('page1')
+        Swiper.leftRight('page3', 'page2')
+
+    else if Swiper.pageIs('page2')
+      Swiper.leftRight('page1', 'page3')
+
+    else if Swiper.pageIs('page3')
+      Swiper.leftRight('page2', 'page1')
