@@ -11,3 +11,6 @@
     return min + (n - max) - 1
   else
     return n
+
+
+@delay = (ms, func) -> setTimeout func, ms

@@ -32,6 +32,7 @@ setPage = (location, name) ->
     'translate3d('+x+'px,0,0)'
 
 setHidden = (name) ->
+  # delay 300, ->
   $('.page.'+name)?.css 'display', 'none'
 
 
