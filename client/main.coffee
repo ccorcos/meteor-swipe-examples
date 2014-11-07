@@ -59,13 +59,13 @@ Template.main.helpers
 
 Template.main.rendered = ->
 
+  @touching = false
   # starting page
   Swiper.setPage('page1')
 
   # page control
   removePage5 = false
   Tracker.autorun ->
-    console.log "autorun"
     if Swiper.pageIs('page1')
         Swiper.leftRight('page3', 'page2')
 
@@ -75,9 +75,16 @@ Template.main.rendered = ->
     else if Swiper.pageIs('page3')
       Swiper.leftRight('page2', 'page1')
 
-Template.page1.events
-  'click .next': (e,t) ->
-    Swiper.moveRight()
 
-  'touchend .next': (e,t) ->
-    Swiper.moveRight()
+# Template.page1.events
+#   'mouseup .next': (e,t) ->
+#     console.log e
+#     Swiper.moveRight()
+#
+#   'touchend .next': (e,t) ->
+#     if e.currentTarget is Swiper.element
+#       Swiper.moveRight()
+
+
+swipeControl Swiper, 'page1', '.next', (e,t) ->
+  Swiper.moveRight()

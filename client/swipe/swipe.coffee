@@ -1,4 +1,5 @@
 
+
 class @Swipe
   constructor: (@templateNames) ->
     @state = new Package['reactive-dict'].ReactiveDict()
@@ -152,10 +153,6 @@ Template.swipe.rendered = ->
   @posX = 0
 
 Template.swipe.events
-  'resize .pages': (e,t) ->
-    console.log 'resizing!'
-    # pageWidth
-
   'mousedown .pages': (e,t) ->
     unless $(e.target).hasClass('no-swipe')
       # remove stop all animations in this swiper
@@ -167,6 +164,13 @@ Template.swipe.events
 
   'touchstart .pages': (e,t) ->
     unless $(e.target).hasClass('no-swipe')
+
+      # keep track of what element the pointer is over for touchend
+      x = e.originalEvent.touches[0].pageX - window.pageXOffset
+      y = e.originalEvent.touches[0].pageY - window.pageYOffset
+      target = document.elementFromPoint(x, y)
+      t.Swiper.element = target
+
       # remove stop all animations in this swiper
       $(t.findAll('.animate')).removeClass('animate')
       clickX = e.originalEvent.touches[0].pageX
@@ -175,6 +179,7 @@ Template.swipe.events
       t.mouseDown = true # swipe has begun
 
   'mousemove .pages': (e,t) ->
+
     if t.mouseDown
       newMouseX = e.pageX
       oldMouseX = t.mouseX
@@ -187,6 +192,13 @@ Template.swipe.events
   'touchmove .pages': (e,t) ->
     # need prevent default AND return false for touchend to work
     e.preventDefault()
+
+    # keep track of what element the pointer is over for touchend
+    x = e.originalEvent.touches[0].pageX - window.pageXOffset
+    y = e.originalEvent.touches[0].pageY - window.pageYOffset
+    target = document.elementFromPoint(x, y)
+    t.Swiper.element = target
+
     if t.mouseDown
       newMouseX = e.originalEvent.touches[0].pageX
       oldMouseX = t.mouseX
@@ -224,9 +236,9 @@ Template.swipe.events
         t.changeX = 0
         t.mouseDown = false
 
-
-  'touchend, touchcancel .pages': (e,t) ->
-    if $(e.target).hasClass('swipe-control')
+  # mouseout and touchcancel
+  'touchend .pages': (e,t) ->
+    if $(e.target).hasClass('swipe-control') and e.target is t.Swiper.element
       t.velX = 0
       t.startX = 0
       t.mouseX = 0
@@ -252,6 +264,16 @@ Template.swipe.events
         t.mouseDown = false
 
 
+@swipeControl = (Swiper, template, selector, handler) ->
+  mouseup = 'mouseup ' + selector
+  touchend = 'touchend ' + selector
+  eventMap = {}
+  eventMap[mouseup] = (e,t) ->
+    handler(e,t)
+  eventMap[touchend] = (e,t) ->
+    if e.currentTarget is Swiper.element
+      handler(e,t)
+  Template[template].events eventMap
 
 sign = (x) ->
   if x >= 0 then return 1 else return -1
