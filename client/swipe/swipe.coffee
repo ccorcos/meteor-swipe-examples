@@ -1,13 +1,36 @@
 
 
 class @Swipe
-  constructor: (@templateNames) ->
+  constructor: (@templateNames, arrowKeys=true) ->
     @state = new Package['reactive-dict'].ReactiveDict()
     @state.set 'page', null
     @state.set 'left', null
     @state.set 'right', null
     @t = null # template
     @lastPage = null
+
+    self = @
+    # react to window resizing!
+    $(window).resize ->
+      self.t?.width = $(self.t?.find('.pages')).width()
+      self.resize()
+
+    if arrowKeys
+      document.onkeydown = (e) ->
+        if not e then e = window.event
+        code = e.keyCode
+        if code is 37
+          # let moveLeft handle the animations. This fixes the 3 page example.
+          $(self.t?.findAll('.animate')).removeClass('animate')
+          self.moveLeft()
+        else if code is 39
+          # let moveLeft handle the animations. This fixes the 3 page example.
+          $(self.t?.findAll('.animate')).removeClass('animate')
+          self.moveRight()
+        # else if code is 38 # up
+        # else if code is 40 # down
+        event.preventDefault()
+
 
   setTemplate: (t) ->
     @t = t
@@ -139,11 +162,8 @@ Template.swipe.rendered = ->
 
   @width = $(@find('.pages')).width()
 
-  t = @
-  # react to window resizing!
-  $(window).resize ->
-    t.width = $(t.find('.pages')).width()
-    t.Swiper.resize()
+
+
 
 
   # keep track of scrolling
@@ -236,6 +256,38 @@ Template.swipe.events
         t.changeX = 0
         t.mouseDown = false
 
+  'mouseout .pages': (e,t) ->
+    if t.mouseDown
+      parentToChild = e.fromElement is e.toElement.parentNode
+      childToParent = _.contains(e.toElement.childNodes, e.fromElement)
+      if not (parentToChild or childToParent)
+        posX = t.changeX + t.posX
+        momentum = Math.abs(10*t.velX)
+        momentum = Math.min(momentum, t.width/2)
+        momentum = momentum*sign(t.velX)
+        index = Math.round((posX + momentum) / t.width)
+        if index is -1
+          t.Swiper.moveRight()
+        else if index is 1
+          t.Swiper.moveLeft()
+        else
+          t.Swiper.animateBack()
+
+        t.velX = 0
+        t.startX = 0
+        t.mouseX = 0
+        t.changeX = 0
+        t.mouseDown = false
+
+    scrollOffPage = e.toElement is document.querySelector("html")
+    if scrollOffPage
+      # Not handling this well
+      t.velX = 0
+      t.startX = 0
+      t.mouseX = 0
+      t.changeX = 0
+      t.mouseDown = false
+
   # mouseout and touchcancel
   'touchend .pages': (e,t) ->
     if $(e.target).hasClass('swipe-control') and e.target is t.Swiper.element
@@ -262,6 +314,21 @@ Template.swipe.events
         t.mouseX = 0
         t.changeX = 0
         t.mouseDown = false
+
+
+# These are effectively the same:
+
+# swipeControl Swiper, 'page1', '.next', (e,t) ->
+#   Swiper.moveRight()
+
+# Template.page1.events
+#   'mouseup .next': (e,t) ->
+#     console.log e
+#     Swiper.moveRight()
+#
+#   'touchend .next': (e,t) ->
+#     if e.currentTarget is Swiper.element
+#       Swiper.moveRight()
 
 
 @swipeControl = (Swiper, template, selector, handler) ->

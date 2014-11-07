@@ -3,14 +3,40 @@
 </head>
 
 <body>
-  {{> main}}
+  {{> ex4}}
 </body>
 
-<template name="main">
+
+<template name="ex1">
   <div class="wrapper">
     {{>swipe Swiper=Swiper}}
   </div>
 </template>
+
+<template name="ex2">
+  <div class="wrapper">
+    {{>swipe Swiper=Swiper}}
+  </div>
+</template>
+
+<template name="ex3">
+  <div class="wrapper">
+    {{>swipe Swiper=Swiper}}
+  </div>
+</template>
+
+<template name="ex4">
+  <div class="wrapper">
+    <div class="top">
+      {{>swipe Swiper=SwiperTop}}
+    </div>
+    <div class="bottom">
+      {{>swipe Swiper=SwiperBottom}}
+    </div>
+  </div>
+</template>
+
+
 
 <template name="page1">
   page 1
