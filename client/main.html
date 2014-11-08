@@ -2,35 +2,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 </head>
 
-<body>
-  {{> ex3}}
-</body>
+<template name="layout">
+  {{>main}}
+</template>
 
-<template name="ex3">
+<template name="main">
   <div class="wrapper">
     {{>swipe Swiper=Swiper}}
   </div>
-</template>
-
-<template name="page1">
-  page 1
-
-  <div class="next swipe-control">next</div>
-  <div class="middle no-swipe">You cant begin a swipe here!</div>
-</template>
-
-<template name="page2">
-  page 2
-</template>
-
-<template name="page3">
-  page 3
-</template>
-
-<template name="page4">
-  page 4
-</template>
-
-<template name="page5">
-  page 5
 </template>

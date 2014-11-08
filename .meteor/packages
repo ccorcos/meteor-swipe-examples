@@ -4,10 +4,11 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
 coffeescript
 less
 underscore
+iron:router
+meteorhacks:subs-manager
+accounts-password
 ccorcos:swipe
 

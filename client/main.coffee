@@ -1,16 +1,10 @@
-# EXAMPLE 3
-# This example shows how you can dynamically set the center, left and right pages
-# to whatever you want with no deterimental effects. In this example, we set out
-# to show:
-#
-# 1) We can prevent a swipe in either direction by setting null
-# 2) We can infinitely swipe in circles if we want (to the right in this case)
-# 3) We can have pages drop out seemlessly as happens with page5 after being viewed
 
+@Swiper = new Swipe(['loginSignup', 'lists', 'tasks'])
 
-Swiper = new Swipe(['page1', 'page2', 'page3', 'page4', 'page5'])
+for page in ['loginSignup', 'lists', 'tasks']
+  console.log Template[page].events
 
-Template.ex3.helpers
+Template.main.helpers
   Swiper: -> Swiper
 
 # If an element controls swiping, make sure to include the `swipe-control` class.
@@ -18,13 +12,15 @@ Template.ex3.helpers
 Swiper.swipeControl 'page1', '.next', (e,t) ->
   Swiper.moveRight()
 
-Template.ex3.rendered = ->
+Template.main.rendered = ->
 
   # starting page
   Swiper.setPage('page1')
 
+  # if not logged in, set route to login
+  # else
+
   # page control
-  removePage5 = false
   Tracker.autorun ->
     if Swiper.pageIs('page1')
       if removePage5

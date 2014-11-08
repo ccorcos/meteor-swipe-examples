@@ -17,3 +17,8 @@ You can see the code in the corresponding branches. Each example is deployed to 
 - iron router example
 - keep session variables after reload
 - mouse off screen bug
+
+
+# WIP
+
+add iron router. make a todo's example with swiping to the side
