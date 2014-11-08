@@ -10,11 +10,9 @@ Package.onUse(function(api) {
 
   api.use(['templating', 'coffeescript'], 'client')
 
-  api.addFiles(['swipe/swipe.coffee', 'swipe/swipe.html', 'swipe/swipe.css'], 'client');
+  api.addFiles(['swipe/swipe.html', 'swipe/swipe.coffee', 'swipe/swipe.css'], 'client');
 
-  if (api.export) {
-    api.export('Swipe')
-  }
+  api.export('Swipe', ['client'])
 
 });
 

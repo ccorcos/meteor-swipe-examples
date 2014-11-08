@@ -1,6 +1,6 @@
 
 
-class @Swipe
+class Swipe
   constructor: (@templateNames, arrowKeys=true) ->
     @state = new Package['reactive-dict'].ReactiveDict()
     @state.set 'page', null
@@ -177,14 +177,16 @@ class @Swipe
 
 
 Template.swipe.helpers
-  pages: -> _.map @Swiper.templateNames, (name) -> {name: name}
+  pages: -> _.map @Swiper?.templateNames, (name) -> {name: name}
 
 
 Template.swipe.rendered = ->
   # check that templateNames is passed
-  if not @data.Swiper then console.log("ERROR: must pass a Swipe object.")
-  @Swiper = @data.Swiper
-  @Swiper.setTemplate(@)
+  if not @data.Swiper
+    console.log("ERROR: must pass a Swipe object.")
+  else
+    @Swiper = @data.Swiper
+    @Swiper.setTemplate(@)
 
   @width = $(@find('.pages')).width()
 
