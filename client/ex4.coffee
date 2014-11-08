@@ -14,7 +14,7 @@ if true
 
   # If an element controls swiping, make sure to include the `swipe-control` class.
   # Then to use the control, use `swipeControl`.
-  swipeControl SwiperBottom, 'page1', '.next', (e,t) ->
+  SwiperBottom.swipeControl 'page1', '.next', (e,t) ->
     SwiperBottom.moveRight()
 
   Template.ex4.rendered = ->

@@ -149,6 +149,32 @@ class @Swipe
     @setLeft(@getLeft())
     @setRight(@getRight())
 
+  # These are effectively the same:
+
+  # swipeControl Swiper, 'page1', '.next', (e,t) ->
+  #   Swiper.moveRight()
+
+  # Template.page1.events
+  #   'mouseup .next': (e,t) ->
+  #     console.log e
+  #     Swiper.moveRight()
+  #
+  #   'touchend .next': (e,t) ->
+  #     if e.currentTarget is Swiper.element
+  #       Swiper.moveRight()
+
+  swipeControl: (template, selector, handler) ->
+    Swiper = @
+    mouseup = 'mouseup ' + selector
+    touchend = 'touchend ' + selector
+    eventMap = {}
+    eventMap[mouseup] = (e,t) ->
+      handler(e,t)
+    eventMap[touchend] = (e,t) ->
+      if e.currentTarget is Swiper.element
+        handler(e,t)
+    Template[template].events eventMap
+
 
 Template.swipe.helpers
   pages: -> _.map @Swiper.templateNames, (name) -> {name: name}
@@ -316,31 +342,7 @@ Template.swipe.events
         t.mouseDown = false
 
 
-# These are effectively the same:
 
-# swipeControl Swiper, 'page1', '.next', (e,t) ->
-#   Swiper.moveRight()
-
-# Template.page1.events
-#   'mouseup .next': (e,t) ->
-#     console.log e
-#     Swiper.moveRight()
-#
-#   'touchend .next': (e,t) ->
-#     if e.currentTarget is Swiper.element
-#       Swiper.moveRight()
-
-
-@swipeControl = (Swiper, template, selector, handler) ->
-  mouseup = 'mouseup ' + selector
-  touchend = 'touchend ' + selector
-  eventMap = {}
-  eventMap[mouseup] = (e,t) ->
-    handler(e,t)
-  eventMap[touchend] = (e,t) ->
-    if e.currentTarget is Swiper.element
-      handler(e,t)
-  Template[template].events eventMap
 
 sign = (x) ->
   if x >= 0 then return 1 else return -1
