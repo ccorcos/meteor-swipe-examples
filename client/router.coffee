@@ -1,49 +1,46 @@
 Session.setDefault "loginRedirect", 'page1'
 
-# `main` gets rendered after the router get called. Thus the Swiper isnt tied
-# to an existing template yet. So we have to call `Swiper.setPage` in the rendered
-# function
+# Router is just handling urls and login redirecting. Make sure not to do anything
+# with Swiper in the `before` function or you might end up in reactive hell.
 
 Router.map ->
   @route 'loginSignup',
     template: 'main'
-    onBeforeAction: ->
-      if Meteor.user()
-        this.redirect Session.get('loginRedirect')
-      else
-        if Swiper.isReady() then Swiper.setPage('loginSignup')
+    before: ->
+      console.log "router loginSignup"
+      if Meteor.loggingIn() or Meteor.user()
+        this.redirect 'page1'
       this.next()
 
   @route 'page1',
     template: 'main'
     path: '/'
-    onBeforeAction: ->
-      if Meteor.user()
-        if Swiper.isReady() then Swiper.setPage('page1')
-      else
+    before: ->
+      console.log "router page1"
+      if (not Meteor.loggingIn()) and (not Meteor.user())
         Session.set 'loginRedirect', 'page1'
         this.redirect('loginSignup')
       this.next()
 
   @route 'page2',
     template: 'main'
-    onBeforeAction: ->
-      if Meteor.user()
-        if Swiper.isReady() then Swiper.setPage('page2')
-      else
+    before: ->
+      console.log "router page2"
+      if (not Meteor.loggingIn()) and (not Meteor.user())
         Session.set 'loginRedirect', 'page2'
         this.redirect('loginSignup')
       this.next()
 
+
   @route 'page3',
     template: 'main'
-    onBeforeAction: ->
-      if Meteor.user()
-        if Swiper.isReady() then Swiper.setPage('page3')
-      else
+    before: ->
+      console.log "router page3"
+      if (not Meteor.loggingIn()) and (not Meteor.user())
         Session.set 'loginRedirect', 'page3'
         this.redirect('loginSignup')
       this.next()
+
 
 Router.configure
   layoutTemplate: 'layout'

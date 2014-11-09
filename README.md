@@ -12,13 +12,12 @@ You can see the code in the corresponding branches. Each example is deployed to 
 - [ex3](http://swipe-ex3.meteor.com/)
 - [ex4](http://swipe-ex4.meteor.com/)
 
+# Iron Router
+
+The current master branch shows a demo using iron-router and user login. It uses `Tracker.autorun`
+to dynamically arrange the layout of the swiper, animate transitions, and set the route.
+
 ## To do
 
-- iron router example
 - keep session variables after reload
 - mouse off screen bug
-
-
-# WIP
-
-add iron router. make a todo's example with swiping to the side
