@@ -8,7 +8,5 @@ coffeescript
 less
 underscore
 iron:router
-meteorhacks:subs-manager
 accounts-password
 ccorcos:swipe
-

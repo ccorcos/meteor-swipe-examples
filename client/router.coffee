@@ -1,44 +1,49 @@
-Swiper = @Swiper
+Session.setDefault "loginRedirect", 'page1'
 
-@subs = new SubsManager()
-
-Session.setDefault 'listId', null
+# `main` gets rendered after the router get called. Thus the Swiper isnt tied
+# to an existing template yet. So we have to call `Swiper.setPage` in the rendered
+# function
 
 Router.map ->
-  @route 'lists',
-    template: 'main'
-    path: '/'
-    waitOn: ->
-      subs.subscribe('lists')
-    onBeforeAction: ->
-      if Meteor.user()
-        Swiper.setPage('lists')
-      else
-        this.redirect('loginSignup')
-      this.next()
-
-  @route 'tasks',
-    template: 'main'
-    path: '/:_id'
-    waitOn: ->
-      subs.subscribe('tasks', @params._id)
-    onBeforeAction: ->
-      if Meteor.user()
-        Session.set 'listId', @params._id
-        Swiper.setPage('tasks')
-      else
-        this.redirect('loginSignup')
-      this.next()
-
   @route 'loginSignup',
     template: 'main'
     onBeforeAction: ->
       if Meteor.user()
-        this.redirect('lists')
+        this.redirect Session.get('loginRedirect')
       else
-        Swiper.setPage('loginSignup')
+        if Swiper.isReady() then Swiper.setPage('loginSignup')
       this.next()
 
+  @route 'page1',
+    template: 'main'
+    path: '/'
+    onBeforeAction: ->
+      if Meteor.user()
+        if Swiper.isReady() then Swiper.setPage('page1')
+      else
+        Session.set 'loginRedirect', 'page1'
+        this.redirect('loginSignup')
+      this.next()
+
+  @route 'page2',
+    template: 'main'
+    onBeforeAction: ->
+      if Meteor.user()
+        if Swiper.isReady() then Swiper.setPage('page2')
+      else
+        Session.set 'loginRedirect', 'page2'
+        this.redirect('loginSignup')
+      this.next()
+
+  @route 'page3',
+    template: 'main'
+    onBeforeAction: ->
+      if Meteor.user()
+        if Swiper.isReady() then Swiper.setPage('page3')
+      else
+        Session.set 'loginRedirect', 'page3'
+        this.redirect('loginSignup')
+      this.next()
 
 Router.configure
   layoutTemplate: 'layout'

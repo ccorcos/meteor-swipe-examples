@@ -3,11 +3,32 @@
 </head>
 
 <template name="layout">
-  {{>main}}
+  {{>yield}}
 </template>
 
 <template name="main">
   <div class="wrapper">
     {{>swipe Swiper=Swiper}}
   </div>
+</template>
+
+
+<template name="loginSignup">
+  <div class="form">
+    <input type="text" id="username" placeholder="username">
+    <input type="password" id="password" placeholder="username">
+    <input type="button" id="loginSignup" value="login or signup">
+  </div>
+</template>
+
+<template name="page1">
+  page1
+</template>
+
+<template name="page2">
+  page2
+</template>
+
+<template name="page3">
+  page3
 </template>
