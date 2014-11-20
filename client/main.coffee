@@ -19,7 +19,6 @@ Swiper.swipeControl 'page1', '.next', (e,t) ->
   Swiper.moveRight()
 
 Swiper.swipeControl 'page2', '.big-right', (e,t) ->
-  console.log "swipe control right"
   Swiper.moveRight()
 
 Template.ex3.rendered = ->
