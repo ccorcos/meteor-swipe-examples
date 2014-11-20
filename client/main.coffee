@@ -1,10 +1,16 @@
 
 # Initialize the Swiper
-@Swiper = new Swipe(['page1', 'page2', 'page3'])
+Swiper = new Swipe(['page1', 'page2', 'page3', 'page4', 'page5'])
 
 Template.main.helpers
   Swiper: -> Swiper
 
+
+
+# If an element controls swiping, make sure to include the `swipe-control` class.
+# Then to use the control, use `swipeControl`.
+Swiper.swipeControl 'page1', '.next', (e,t) ->
+  Swiper.moveRight()
 
 Swiper.swipeControl 'page2', '.big-right', (e,t) ->
   Swiper.moveRight()
@@ -17,45 +23,27 @@ Template.main.rendered = ->
   # page control
   Tracker.autorun ->
     # small problem right now: this autorun runs too many times
-    console.log "autorun"
+    # page control
+    removePage5 = false
+    Tracker.autorun ->
+      if Swiper.pageIs('page1')
+        if removePage5
+          Swiper.leftRight('page4', 'page2')
+        else
+          Swiper.leftRight(null, 'page2')
 
-    # Animate the transitions
-    if Session.get "logoutTransition"
-      Swiper.setLeft "loginSignup"
-      Swiper.moveLeft()
-      Session.set "logoutTransition", false
+      else if Swiper.pageIs('page2')
+        Swiper.leftRight('page1', 'page3')
 
-    else if Session.get "loginTransition"
-      Swiper.setRight Session.get('loginRedirect')
-      Swiper.moveRight()
-      Session.set "loginTransition", false
+      else if Swiper.pageIs('page3')
+        Swiper.leftRight('page2', 'page4')
 
-    # Set the left and right for swiping and set the route as they change
-    else if Swiper.pageIs('loginSignup')
-      Router.go "loginSignup"
-      Swiper.leftRight(null, null)
+      else if Swiper.pageIs('page4')
+        if removePage5
+          Swiper.leftRight('page3', 'page1')
+        else
+          Swiper.leftRight('page3', 'page5')
 
-    else if Swiper.pageIs('page1')
-      Router.go "page1"
-      Swiper.leftRight('page3', 'page2')
-
-    else if Swiper.pageIs('page2')
-      Router.go "page2"
-      Swiper.leftRight('page1', 'page3')
-
-    else if Swiper.pageIs('page3')
-      Router.go "page3"
-      Swiper.leftRight('page2', 'page1')
-
-@afterLoginSignup = () ->
-  Session.set "loginTransition", true
-
-Template.page1.events
-  'click .logout': (e,t) ->
-    Meteor.logout()
-    Session.set "logoutTransition", true
-
-# If an element controls swiping, make sure to include the `swipe-control` class.
-# Then to use the control, use `swipeControl`.
-Swiper.swipeControl 'page2', '.next', (e,t) ->
-  Swiper.moveRight()
+      else if Swiper.pageIs('page5')
+        removePage5 = true
+        Swiper.leftRight('page4', 'page1')

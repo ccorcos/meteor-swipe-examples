@@ -7,7 +7,5 @@ meteor-platform
 coffeescript
 less
 underscore
-iron:router
 accounts-password
 ccorcos:swipe
-
