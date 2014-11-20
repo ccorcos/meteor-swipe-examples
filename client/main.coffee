@@ -1,14 +1,18 @@
 
 # Initialize the Swiper
-@Swiper = new Swipe(['loginSignup', 'page1', 'page2', 'page3'])
+@Swiper = new Swipe(['page1', 'page2', 'page3'])
 
 Template.main.helpers
   Swiper: -> Swiper
 
 
+Swiper.swipeControl 'page2', '.big-right', (e,t) ->
+  Swiper.moveRight()
+
 Template.main.rendered = ->
-  # set the initial page from the route
-  Swiper.setPage Router.current().route.getName()
+
+  # starting page
+  Swiper.setPageHard('page1')
 
   # page control
   Tracker.autorun ->
