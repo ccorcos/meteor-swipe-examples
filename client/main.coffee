@@ -8,7 +8,7 @@ Template.main.helpers
 
 Template.main.rendered = ->
   # set the initial page from the route
-  Swiper.setPage Router.current().route.getName()
+  Swiper.setPageHard Router.current().route.getName()
 
   # page control
   Tracker.autorun ->
