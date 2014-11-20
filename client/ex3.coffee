@@ -21,7 +21,7 @@ Swiper.swipeControl 'page1', '.next', (e,t) ->
 Template.ex3.rendered = ->
 
   # starting page
-  Swiper.setPage('page1')
+  Swiper.setPageHard('page1')
 
   # page control
   removePage5 = false
