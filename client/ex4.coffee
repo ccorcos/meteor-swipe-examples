@@ -19,8 +19,8 @@ SwiperBottom.swipeControl 'page1', '.next', (e,t) ->
 Template.ex4.rendered = ->
 
   # starting page
-  SwiperTop.setPage('page3')
-  SwiperBottom.setPage('page1')
+  SwiperTop.setPageHard('page3')
+  SwiperBottom.setPageHard('page1')
 
   # page control
   Tracker.autorun ->
