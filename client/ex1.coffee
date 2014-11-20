@@ -16,7 +16,7 @@ Swiper.swipeControl 'page1', '.next', (e,t) ->
 Template.ex1.rendered = ->
 
   # starting page
-  Swiper.setPage('page1')
+  Swiper.setPageHard('page1')
 
   # page control
   Tracker.autorun ->
