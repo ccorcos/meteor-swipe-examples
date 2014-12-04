@@ -69,6 +69,5 @@ Template.main.rendered = ->
 
   Tracker.autorun ->
     if Swiper.pageIs('page5')
-      console.log "page5"
       # you're stuck here. must use a control!
       Swiper.leftRight(null, null)
