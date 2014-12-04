@@ -18,11 +18,15 @@
 
   <div class="next swipe-control">next</div>
   <div class="middle no-swipe">You cant begin a swipe here!</div>
+
+  <div class="pop-up">pop up</div>
+  
 </template>
 
 <template name="page2">
   page 2
   <div class="big-right swipe-control">cancel button if swiping</div>
+  <div class="swipe-control custom-transition">this is a special transition to a page that doesnt yet exist!</div>
 </template>
 
 <template name="page3">
@@ -196,5 +200,6 @@
 </template>
 
 <template name="page5">
-  page 5
+  <div class="swipe-control right-to-page1">page1 -></div>
+  <div class="swipe-control left-to-page4"> &lt;- page4</div>
 </template>
