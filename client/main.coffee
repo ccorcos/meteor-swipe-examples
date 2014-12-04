@@ -26,8 +26,6 @@ Swiper.click 'page1', '.pop-up', (e,t) ->
   alert 'you cant swipe on this page. only transition left and right and see a pop up.'
 
 
-
-
 Template.main.rendered = ->
 
   # starting page
