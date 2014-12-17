@@ -49,6 +49,7 @@ Template.main.rendered = ->
   removePage4 = false
   Tracker.autorun ->
     if Swiper.pageIs('page1')
+      Router.go 'page1'
       if removePage4
         Swiper.leftRight('page3', 'page2')
       else
@@ -56,10 +57,12 @@ Template.main.rendered = ->
 
   Tracker.autorun ->
     if Swiper.pageIs('page2')
+      Router.go 'page2'
       Swiper.leftRight('page1', 'page3')
 
   Tracker.autorun ->
     if Swiper.pageIs('page3')
+      Router.go 'page3'
       if removePage4
         Swiper.leftRight('page2', 'page1')
       else
@@ -67,10 +70,12 @@ Template.main.rendered = ->
 
   Tracker.autorun ->
     if Swiper.pageIs('page4')
+      Router.go 'page4'
       removePage4 = true
       Swiper.leftRight('page3', 'page1')
 
   Tracker.autorun ->
     if Swiper.pageIs('page5')
+      Router.go 'page5'
       # you're stuck here. must use a control!
       Swiper.leftRight(null, null)
