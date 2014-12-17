@@ -4,7 +4,7 @@ This repo contains some examples of the [ccorcos:swipe](https://github.com/ccorc
 
 ## Tests
 
-This demo shows a bunch of edge cases to test:
+This [demo](swiper.meteor.com) shows a bunch of edge cases to test:
 
 - page ordering
 
@@ -52,15 +52,10 @@ This demo shows a bunch of edge cases to test:
 
 
 
-
-
 ## To do
 
-- and touch/control buttons in general
 - iron router integration
 - change url without triggering actions
-
-
 
 - keep session variables after reload
 - mouse off screen bug
