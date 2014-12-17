@@ -32,7 +32,7 @@ Swiper.click 'page1', '.pop-up', (e,t) ->
 Template.main.rendered = ->
 
   # starting page
-  Swiper.setInitialPage 'page1'
+  Swiper.setInitialPage Router.current().route.getName()
 
   # initially, you cant swipe left. but once you go around the loop, page4 drops
   # off. This tests to see that the animation completes and page4 doesnt disappear
@@ -41,10 +41,6 @@ Template.main.rendered = ->
   # once page4 drops off, we have 3 pages. We can scroll through these fast to make
   # sure that the pages wrap around without animating in front of us.
 
-  # scroll check
-  # buttton check and button with swipe check
-  # no swipe check
-  # scroll check
 
   removePage4 = false
   Tracker.autorun ->

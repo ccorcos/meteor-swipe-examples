@@ -1,6 +1,6 @@
 Router.route 'page1',
   template: 'main'
-  path: '/page1'
+  path: '/'
 
 Router.route 'page2',
   template: 'main'
