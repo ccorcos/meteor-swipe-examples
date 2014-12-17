@@ -53,9 +53,5 @@ This [demo](swiper.meteor.com) shows a bunch of edge cases to test:
 
 
 ## To do
-
-- iron router integration
-- change url without triggering actions
-
 - keep session variables after reload
 - mouse off screen bug
