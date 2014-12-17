@@ -1,17 +1,6 @@
 # Swipe Examples
 
-This repo contains some examples of the [ccorcos:swipe](https://github.com/ccorcos/meteor-swipe/
-) package.
-<!--
-## Demos
-
-You can see the code in the corresponding branches. Each example is deployed to the links below
-
-- [ex1](http://swipe-ex1.meteor.com/)
-- [ex2](http://swipe-ex2.meteor.com/)
-- [ex3](http://swipe-ex3.meteor.com/)
-- [ex4](http://swipe-ex4.meteor.com/) -->
-
+This repo contains some examples of the [ccorcos:swipe](https://github.com/ccorcos/meteor-swipe/) package.
 
 ## Tests
 
@@ -20,7 +9,7 @@ This demo shows a bunch of edge cases to test:
 - page ordering
 
     several `autorun`s used to manage pages. Cannot scroll in a direction
-    when passed null
+    when passed null. EX: initially, on the first page, you cant scroll left.
 
 - 3 pages circular swipe
 
@@ -55,10 +44,18 @@ This demo shows a bunch of edge cases to test:
     can register events that move the pages or transition or move one
     way or the other
 
+- transition to a page that doesnt exist
+
+    on page2, you can execute a custom transition to page that doesnt exist.
+    you'll be locked in and will have to click a button to pop out. You can 
+    animate transition to any page with `transitionRight` or `transitionLeft`
+
+
+
+
 
 ## To do
 
-- create page an transition on trigger
 - and touch/control buttons in general
 - iron router integration
 - change url without triggering actions
