@@ -22,6 +22,9 @@ Swiper.click 'page5', '.left-to-page4', (e,t) ->
 Swiper.click 'page5', '.right-to-page1', (e,t) ->
   Swiper.transitionRight 'page1'
 
+Swiper.click 'page3', '.right-to-page1', (e,t) ->
+  Swiper.transitionRight 'page1'
+
 Swiper.click 'page1', '.pop-up', (e,t) ->
   alert 'you cant swipe on this page. only transition left and right and see a pop up.'
 
